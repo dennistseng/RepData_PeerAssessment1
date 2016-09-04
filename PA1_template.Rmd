@@ -35,11 +35,24 @@ datamean <- mean(applied$steps)
 The mean is `r datamean` and median is `r datamedian`
 
 ## What is the average daily activity pattern?
+```{r, echo = TRUE}
+meanapplied <- aggregate(steps ~ interval, data = activity, FUN="mean", na.rm=TRUE)
+plot(meanapplied$interval, meanapplied$steps, type="l")
 
+max_interval <- meanapplied[which.max(meanapplied$steps),1]
+```
 
+The interval with the highest average steps is `r max_interval`
 
 ## Imputing missing values
 
+```{r, echo = TRUE}
+narows <- nrow(activity[is.na(activity$steps), ])
 
+
+
+```
+
+There are `narows` NA rows in the activity dataset.
 
 ## Are there differences in activity patterns between weekdays and weekends?

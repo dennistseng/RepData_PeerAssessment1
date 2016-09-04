@@ -36,7 +36,18 @@ The mean is 1.0766189\times 10^{4} and median is 10765
 
 ## What is the average daily activity pattern?
 
+```r
+meanapplied <- aggregate(steps ~ interval, data = activity, FUN="mean", na.rm=TRUE)
+plot(meanapplied$interval, meanapplied$steps, type="l")
+```
 
+![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+
+```r
+max_interval <- meanapplied[which.max(meanapplied$steps),1]
+```
+
+The interval with the highest average steps is 835
 
 ## Imputing missing values
 
