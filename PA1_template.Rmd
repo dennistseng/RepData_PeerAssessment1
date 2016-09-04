@@ -5,8 +5,14 @@ output:
     keep_md: true
 ---
 
+## Overview
+Dennis Tseng - September 2016
+
+The following assignment analyses fitness tracking step information.
 
 ## Loading and preprocessing the data
+
+We see if the dataset exists. If not, we download and unzip the file, then load it. No preprocessing of the data was necessary. 
 
 ```{r, echo=TRUE}
 if (!file.exists("activity.csv")) {
@@ -21,9 +27,11 @@ activity <- read.csv("activity.csv")
 
 
 ## What is mean total number of steps taken per day?
+We aggregate steps on the day and find the mean, then graph via histogram.
+
 ```{r, echo = TRUE}
 applied <- aggregate(steps ~ date, data = activity, FUN="sum", na.rm=TRUE)
-hist(applied$steps)
+hist(applied$steps, main="Histogram of Steps per Day", xlab="Steps")
 ```
 
 ### Calculate Mean and Median
@@ -37,7 +45,7 @@ The mean is `r datamean` and median is `r datamedian`
 ## What is the average daily activity pattern?
 ```{r, echo = TRUE}
 meanapplied <- aggregate(steps ~ interval, data = activity, FUN="mean", na.rm=TRUE)
-plot(meanapplied$interval, meanapplied$steps, type="l")
+plot(meanapplied$interval, meanapplied$steps, type="l", main="Average Daily Activity Pattern", xlab = "Interval", ylab = "Steps")
 
 max_interval <- meanapplied[which.max(meanapplied$steps),1]
 ```
@@ -59,7 +67,7 @@ We aggregate the values and compare with our original dataset with NAs
 
 ```{r, echo = TRUE}
 imputeapplied <- aggregate(steps ~ date, data = impute_data, FUN="sum", na.rm=TRUE)
-hist(imputeapplied$steps)
+hist(imputeapplied$steps,main="Histogram of Steps per Day with Imputed Data", xlab="Steps")
 ```
 
 Next we find the mean and median of the new dataset
@@ -91,6 +99,8 @@ Weekday <- subset(imputeapplied, daytype == 'Weekday')
 Weekend <- subset(imputeapplied, daytype == 'Weekend') 
 
 par(mfrow=c(2,1))
-plot(Weekday$interval, Weekday$steps, type="l")
-plot(Weekend$interval, Weekend$steps, type="l")
+plot(Weekday$interval, Weekday$steps, type="l", xlab="Interval", ylab="Steps", main="Weekday")
+plot(Weekend$interval, Weekend$steps, type="l", xlab="Interval", ylab="Steps",main="Weekend")
 ```
+
+Looking at the graphs, we can see that activity seems to be higher during the weekends than the weekdays.

@@ -1,7 +1,13 @@
 # Reproducible Research: Peer Assessment 1
 
+## Overview
+Dennis Tseng - September 2016
+
+The following assignment analyses fitness tracking step information.
 
 ## Loading and preprocessing the data
+
+We see if the dataset exists. If not, we download and unzip the file, then load it. No preprocessing of the data was necessary. 
 
 
 ```r
@@ -17,10 +23,12 @@ activity <- read.csv("activity.csv")
 
 
 ## What is mean total number of steps taken per day?
+We aggregate steps on the day and find the mean, then graph via histogram.
+
 
 ```r
 applied <- aggregate(steps ~ date, data = activity, FUN="sum", na.rm=TRUE)
-hist(applied$steps)
+hist(applied$steps, main="Histogram of Steps per Day", xlab="Steps")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
@@ -38,7 +46,7 @@ The mean is 1.0766189\times 10^{4} and median is 10765
 
 ```r
 meanapplied <- aggregate(steps ~ interval, data = activity, FUN="mean", na.rm=TRUE)
-plot(meanapplied$interval, meanapplied$steps, type="l")
+plot(meanapplied$interval, meanapplied$steps, type="l", main="Average Daily Activity Pattern", xlab = "Interval", ylab = "Steps")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
@@ -66,7 +74,7 @@ We aggregate the values and compare with our original dataset with NAs
 
 ```r
 imputeapplied <- aggregate(steps ~ date, data = impute_data, FUN="sum", na.rm=TRUE)
-hist(imputeapplied$steps)
+hist(imputeapplied$steps,main="Histogram of Steps per Day with Imputed Data", xlab="Steps")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
@@ -103,8 +111,10 @@ Weekday <- subset(imputeapplied, daytype == 'Weekday')
 Weekend <- subset(imputeapplied, daytype == 'Weekend') 
 
 par(mfrow=c(2,1))
-plot(Weekday$interval, Weekday$steps, type="l")
-plot(Weekend$interval, Weekend$steps, type="l")
+plot(Weekday$interval, Weekday$steps, type="l", xlab="Interval", ylab="Steps", main="Weekday")
+plot(Weekend$interval, Weekend$steps, type="l", xlab="Interval", ylab="Steps",main="Weekend")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+
+Looking at the graphs, we can see that activity seems to be higher during the weekends than the weekdays.
