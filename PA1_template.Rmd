@@ -99,8 +99,8 @@ Weekday <- subset(imputeapplied, daytype == 'Weekday')
 Weekend <- subset(imputeapplied, daytype == 'Weekend') 
 
 par(mfrow=c(2,1))
-plot(Weekday$interval, Weekday$steps, type="l", xlab="Interval", ylab="Steps", main="Weekday")
-plot(Weekend$interval, Weekend$steps, type="l", xlab="Interval", ylab="Steps",main="Weekend")
+plot(Weekday$interval, Weekday$steps, type="l", xlab="Interval", ylab="Steps", main="Weekday", ylim = c(0,200))
+plot(Weekend$interval, Weekend$steps, type="l", xlab="Interval", ylab="Steps",main="Weekend", ylim = c(0,200))
 ```
 
 Looking at the graphs, we can see that activity seems to be higher during the weekends than the weekdays.

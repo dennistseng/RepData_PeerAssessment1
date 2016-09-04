@@ -111,8 +111,8 @@ Weekday <- subset(imputeapplied, daytype == 'Weekday')
 Weekend <- subset(imputeapplied, daytype == 'Weekend') 
 
 par(mfrow=c(2,1))
-plot(Weekday$interval, Weekday$steps, type="l", xlab="Interval", ylab="Steps", main="Weekday")
-plot(Weekend$interval, Weekend$steps, type="l", xlab="Interval", ylab="Steps",main="Weekend")
+plot(Weekday$interval, Weekday$steps, type="l", xlab="Interval", ylab="Steps", main="Weekday", ylim = c(0,200))
+plot(Weekend$interval, Weekend$steps, type="l", xlab="Interval", ylab="Steps",main="Weekend", ylim = c(0,200))
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
